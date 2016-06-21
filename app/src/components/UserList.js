@@ -20,13 +20,17 @@ export default class UserList extends Component {
   }
 
   renderRow(rowData) {
+    const timestamp = new Date(parseFloat(rowData.timestamp)).toLocaleString()
     return <TouchableHighlight
         underlayColor={'#666666'}
         onPress={this.onRowPress.bind(this, rowData)}
     >
       <View style={styles.row}>
-        <Text style={styles.text}>
+        <Text style={styles.username}>
           {rowData.username}
+        </Text>
+        <Text style={styles.timestamp}>
+          {timestamp}
         </Text>
       </View>
     </TouchableHighlight>
@@ -48,14 +52,19 @@ export default class UserList extends Component {
   }
 }
 const styles = StyleSheet.create({
-  text: {
+  username: {
     fontSize: 20,
     fontWeight: '600',
     color: '#ddd'
   },
+  timestamp: {
+    color: '#ddd'
+  },
   row: {
-    borderColor: '#fff',
+    borderColor: '#bbb',
     height: 65,
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    paddingTop: 8,
+    paddingLeft: 6
   }
 });

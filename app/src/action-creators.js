@@ -29,7 +29,8 @@ export function requestLogin(username, location) {
       let data = {
         username,
         latitude: location.coords.latitude,
-        longitude: location.coords.longitude
+        longitude: location.coords.longitude,
+        timestamp: location.timestamp
       };
       fetch('http://whereyouat.net/user.php', {
         method: 'POST',
