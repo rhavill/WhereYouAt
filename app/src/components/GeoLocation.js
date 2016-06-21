@@ -25,7 +25,7 @@ export default class GeoLocation extends Component {
         >
           <MapView.Marker
               coordinate={coordinates}
-              title=""
+              title={this.props.position.username}
               description=""
           />
         </MapView>
