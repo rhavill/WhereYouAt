@@ -12,7 +12,7 @@ export default class PropsSetter {
     this.strategy = new classes[componentName];
   }
 
-  setProps(navigator, props) {
-    return this.strategy.setProps(navigator, props);
+  setProps(navigator, routes, props) {
+    return this.strategy.setProps(navigator, routes, props);
   }
 }

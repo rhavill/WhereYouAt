@@ -1,14 +1,14 @@
 export default class LoginProps {
-  setProps(navigator, props) {
+  setProps(navigator, routes, props) {
     return {
       userLocation: props.userLocation,
-      onPress: this.onLoginPress.bind(this, navigator, props)
+      onPress: this.onLoginPress.bind(this, navigator, routes, props)
     }
   }
 
-  onLoginPress(navigator, props, username) {
+  onLoginPress(navigator, routes, props, username) {
     props.requestLogin(username, props.userLocation);
     props.requestPositions();
-    navigator.push({ name: 'userList' });
+    navigator.push(routes.userList);
   }
 }

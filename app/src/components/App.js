@@ -8,26 +8,10 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import Login from './Login';
-import GeoLocation from './GeoLocation';
-import UserList from './UserList';
 import PropsSetter from '../props-setter/PropsSetter';
 import * as actionCreators from '../action-creators';
-
-const routes = {
-  userList: {
-    component: UserList,
-    componentName: 'UserList'
-  },
-  login: {
-    component: Login,
-    componentName: 'Login'
-  },
-  location: {
-    component: GeoLocation,
-    componentName: 'GeoLocation'
-  }
-};
+import routes from '../routes';
+import navigationBarRouteMapper from '../navigationBarRouteMapper';
 
 function stateToProps(state) {
   return {
@@ -57,29 +41,44 @@ class App extends Component {
   }
 
   renderScene(route, navigator) {
-    const componentName = routes[route.name].componentName;
-    const Component = routes[route.name].component;
+    console.log('renderscene route',route);
+    const componentName = route.componentName;
+    const Component = route.component;
     const propsSetter = new PropsSetter(componentName);
-    let props = propsSetter.setProps(navigator, this.props);
-    return <Component {...props}/>;
+    let props = propsSetter.setProps(navigator, routes, this.props);
+    return <Component title={route.title} {...props}/>;
   }
 
   render() {
     return <Navigator
-      style={ styles.container }
-      initialRoute={ {name: 'login'} }
+      style={styles.navigator}
+      initialRoute={routes.login}
       renderScene={this.renderScene.bind(this)}
       configureScene={ () => { return Navigator.SceneConfigs.FloatFromRight; }}
       navigator={this.navigator}
       ref={(nav) => {this.navigator = nav; }}
+      navigationBar={
+        <Navigator.NavigationBar
+          routeMapper={navigationBarRouteMapper}
+        />
+      }
+      sceneStyle={styles.scene}
     />;
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  navigator: {
     backgroundColor: '#555'
+  },
+  scene: {
+    position: 'absolute',
+    top: 57,
+    borderWidth: 1,
+    borderColor: '#fff',
+    backgroundColor:'#555'
   }
 });
 
 export default connect(stateToProps, actionCreators)(App);
+

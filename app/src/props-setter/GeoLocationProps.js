@@ -1,5 +1,5 @@
 export default class GeoLocationProps {
-  setProps(navigator, props) {
+  setProps(navigator, routes, props) {
     return {
       position: props.currentLocation
     }
