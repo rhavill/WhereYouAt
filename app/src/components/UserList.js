@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from './Loading';
 
 export default class UserList extends Component {
@@ -26,12 +27,19 @@ export default class UserList extends Component {
         onPress={this.onRowPress.bind(this, rowData)}
     >
       <View style={styles.row}>
-        <Text style={styles.username}>
-          {rowData.username}
-        </Text>
-        <Text style={styles.timestamp}>
-          {timestamp}
-        </Text>
+        <View>
+          <Text style={[styles.text, styles.username]}>
+            {rowData.username}
+          </Text>
+          <Text style={styles.text}>
+            {timestamp}
+          </Text>
+        </View>
+        <View style={styles.iconWrapper}>
+          <Text style={styles.text}>
+            <Icon name="chevron-right" size={18}/>
+          </Text>
+        </View>
       </View>
     </TouchableHighlight>
   }
@@ -54,17 +62,21 @@ export default class UserList extends Component {
 const styles = StyleSheet.create({
   username: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#ddd'
+    fontWeight: '600'
   },
-  timestamp: {
+  text: {
     color: '#ddd'
   },
   row: {
     borderColor: '#bbb',
     height: 65,
     borderBottomWidth: 1,
-    paddingTop: 8,
-    paddingLeft: 6
+    padding: 6,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  iconWrapper: {
+    height: 20,
+    alignSelf: 'center'
   }
 });
