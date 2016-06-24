@@ -17,25 +17,25 @@ export default class Login extends Component {
   }
   render() {
     return this.props.userLocation ?
-        <View style={styles.container}>
-          <View style={styles.loginContainer}>
-            <TextInput
-                style={styles.input}
-                value={this.state.username}
-                onChangeText={(text) => this.setState({username: text})}
-                placeholder={'Enter Nickname'}
-                maxLength={12}
-                multiline={false}
-            />
+          <View style={styles.container}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                  style={styles.input}
+                  value={this.state.username}
+                  onChangeText={(text) => this.setState({username: text})}
+                  placeholder={'Enter Nickname'}
+                  maxLength={12}
+                  multiline={false}
+              />
+            </View>
             <TouchableHighlight
                 style={styles.button}
                 underlayColor={'#666666'}
                 onPress={this.props.onPress.bind(null, this.state.username)}
             >
-              <Text style={styles.label}>LOGIN</Text>
+              <Text style={styles.buttonText}>LOGIN</Text>
             </TouchableHighlight>
           </View>
-        </View>
         :
         <Loading />
     ;
@@ -46,22 +46,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
-    backgroundColor: '#555'
+    alignItems: 'center'
   },
-  loginContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  inputContainer: {
+    width: 250,
+    height: 52,
+    borderWidth: 1,
+    alignSelf: 'center',
   },
   input: {
-    width: 250,
-    padding: 10,
+    backgroundColor: '#fff',
     height: 50,
-    borderWidth: 1,
-    borderRadius: 4,
-    alignSelf: 'center',
-    backgroundColor: '#ffffff'
+    paddingLeft: 15,
+    paddingRight: 15
   },
   button: {
     justifyContent: 'center',
@@ -71,8 +68,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     backgroundColor: '#777'
+    //backgroundColor: '#006dcc'
   },
-  label: {
+  buttonText: {
     width: 230,
     flex: 1,
     alignSelf: 'center',

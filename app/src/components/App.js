@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {
   BackAndroid,
-  Text,
-  View,
   Navigator,
   StyleSheet
 } from 'react-native';
@@ -41,12 +39,11 @@ class App extends Component {
   }
 
   renderScene(route, navigator) {
-    console.log('renderscene route',route);
     const componentName = route.componentName;
     const Component = route.component;
     const propsSetter = new PropsSetter(componentName);
     let props = propsSetter.setProps(navigator, routes, this.props);
-    return <Component title={route.title} {...props}/>;
+    return <Component {...props}/>;
   }
 
   render() {
@@ -74,11 +71,9 @@ const styles = StyleSheet.create({
   scene: {
     position: 'absolute',
     top: 57,
-    borderWidth: 1,
-    borderColor: '#fff',
-    backgroundColor:'#555'
+    //borderWidth: 1,
+    //borderColor: '#fff',
   }
 });
 
 export default connect(stateToProps, actionCreators)(App);
-
