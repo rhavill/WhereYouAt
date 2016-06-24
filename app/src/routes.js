@@ -6,7 +6,7 @@ export default routes = {
   userList: {
     component: UserList,
     componentName: 'UserList',
-    title: 'Users'
+    title: 'People'
   },
   login: {
     component: Login,

@@ -57,6 +57,7 @@ class App extends Component {
       navigationBar={
         <Navigator.NavigationBar
           routeMapper={navigationBarRouteMapper}
+          style={styles.navigationBar}
         />
       }
       sceneStyle={styles.scene}
@@ -66,13 +67,14 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   navigator: {
+    backgroundColor: '#777'
+  },
+  navigationBar: {
     backgroundColor: '#555'
   },
   scene: {
     position: 'absolute',
-    top: 57,
-    //borderWidth: 1,
-    //borderColor: '#fff',
+    top: 57
   }
 });
 
