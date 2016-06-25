@@ -2,7 +2,8 @@ const initialState = {
   username: null,
   userLocation: null,
   positions: [],
-  currentLocation:null
+  currentLocation:null,
+  errorMessage: ''
 };
 
 export default function (state = initialState, action) {
@@ -23,6 +24,10 @@ export default function (state = initialState, action) {
       return Object.assign({}, state, {
         currentLocation: action.currentLocation
       })
+    case 'SET_ERROR_MESSAGE':
+      return Object.assign({}, state, {
+        errorMessage: action.errorMessage
+      });
     default:
       return state;
   }

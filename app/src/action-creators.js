@@ -11,7 +11,9 @@ export function requestUserLocation() {
         (position) => {
           return dispatch(setUserLocation((position)));
         },
-        (error) => alert(error.message),
+        (error) => {
+          return dispatch(setErrorMessage('Error detecting device location.'));
+        },
         {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
@@ -21,6 +23,19 @@ export function setUsername(username) {
   return {
     type: 'SET_USERNAME',
     username
+  }
+}
+
+export function setErrorMessage(errorMessage) {
+  return {
+    type: 'SET_ERROR_MESSAGE',
+    errorMessage
+  }
+}
+
+export function clearErrorMessage() {
+  return dispatch => {
+    return dispatch({type: 'SET_ERROR_MESSAGE', message: null});
   }
 }
 
