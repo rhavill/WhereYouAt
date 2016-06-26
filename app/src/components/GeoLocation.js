@@ -12,7 +12,6 @@ export default class GeoLocation extends Component {
       latitude: parseFloat(this.props.position.latitude),
       longitude: parseFloat(this.props.position.longitude)
     }
-    console.log(this.props.position.timestamp);
     const timestamp = new Date(parseFloat(this.props.position.timestamp)).toLocaleString();
     return (
       <View style={styles.container}>

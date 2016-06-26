@@ -41,22 +41,32 @@ export function clearErrorMessage() {
 
 export function requestLogin(username, location) {
   return dispatch => {
-      let data = {
-        username,
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        timestamp: location.timestamp
-      };
-      fetch('http://whereyouat.net/user.php', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-          .then((response) => dispatch(setUsername((username))))
-          .catch((error) => { alert(error); });
+    let data = {
+      username,
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      timestamp: location.timestamp
+    };
+
+    fetch('http://whereyouat.net/user.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then((response) => {
+      if (response.ok) {
+        return dispatch(setUsername((username)));
+      }
+      else {
+        return dispatch(setErrorMessage('Error with login.'));
+      }
+    })
+    .catch((error) => {
+      return dispatch(setErrorMessage('Error connecting to server for login.'));
+    });
   }
 }
 
@@ -69,14 +79,24 @@ export function setPositions(positions) {
 
 export function requestPositions() {
   return dispatch => {
+    let res = null;
     fetch('http://whereyouat.net/user.php')
-        .then((response) => response.text())
-        .then((responseText) => {
-          dispatch(setPositions(JSON.parse(responseText)));
-        })
-        .catch((error) => {
-          alert(error);
-        });  }
+      .then((response) => {
+        res = response;
+        return response.json();
+      })
+      .then((data) => {
+        if (res.ok && data) {
+          return dispatch(setPositions(data));
+        }
+        else {
+          return dispatch(setErrorMessage('Error retrieving locations.'));
+        }
+      })
+      .catch((error) => {
+        return dispatch(setErrorMessage('Error connecting to server for positions.'));
+      });
+  }
 }
 
 export function setCurrentLocation(currentLocation) {
