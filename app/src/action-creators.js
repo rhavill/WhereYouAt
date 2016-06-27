@@ -47,7 +47,7 @@ export function requestLogin(username, location) {
       longitude: location.coords.longitude,
       timestamp: location.timestamp
     };
-
+    var res = null;
     fetch('http://whereyouat.net/user.php', {
       method: 'POST',
       headers: {
@@ -57,11 +57,21 @@ export function requestLogin(username, location) {
       body: JSON.stringify(data)
     })
     .then((response) => {
+      res = response;
       if (response.ok) {
-        return dispatch(setUsername((username)));
+        dispatch(setUsername((username)));
+        return response.json();
       }
       else {
         return dispatch(setErrorMessage('Error with login.'));
+      }
+    })
+    .then((data) => {
+      if (res.ok && data) {
+        return dispatch(setPositions(data));
+      }
+      else {
+        return dispatch(setErrorMessage('Error retrieving locations during login attempt.'));
       }
     })
     .catch((error) => {
