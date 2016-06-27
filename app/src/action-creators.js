@@ -19,6 +19,21 @@ export function requestUserLocation() {
   }
 }
 
+export function refreshUserLocation() {
+  return (dispatch, getState) => {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(setUserLocation((position)));
+          return dispatch(requestLogin(getState().username, position));
+        },
+        (error) => {
+          return dispatch(setErrorMessage('Error refreshing device location.'));
+        },
+        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+}
+
 export function setUsername(username) {
   return {
     type: 'SET_USERNAME',

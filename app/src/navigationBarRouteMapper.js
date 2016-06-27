@@ -31,7 +31,7 @@ export default navigationBarRouteMapper = {
     </View>
   },
   RightButton: function( route, navigator, index, navState ){
-    return  index == 1 ?
+    return false ?
         <View>
           <TouchableOpacity
               style={styles.touchable}

@@ -31,6 +31,12 @@ class App extends Component {
   componentDidMount() {
     this.backAndroidListener = BackAndroid.addEventListener('hardwareBackPress', this.hardwareBackPress.bind(this));
     this.props.requestUserLocation();
+    let refreshLocation = this.props.refreshUserLocation;
+    this.intervalId = setInterval(() => {
+      console.log('interval');
+      refreshLocation();
+    }, 60000);
+    console.log('intervalId', this.intervalId);
   }
 
   componentWillUnmount() {
