@@ -62,6 +62,7 @@ class App extends Component {
 
   render() {
     return <Navigator
+      requestPositions={this.props.requestPositions}
       style={styles.navigator}
       initialRoute={routes.login}
       renderScene={this.renderScene.bind(this)}

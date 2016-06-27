@@ -31,7 +31,21 @@ export default navigationBarRouteMapper = {
     </View>
   },
   RightButton: function( route, navigator, index, navState ){
-    return null;
+    return  index == 1 ?
+        <View>
+          <TouchableOpacity
+              style={styles.touchable}
+              onPress={() => navigator.props.requestPositions()}
+          >
+            <Text style={[styles.text]}>
+              <Icon name="refresh"
+                    size={20}
+              />
+            </Text>
+          </TouchableOpacity>
+        </View>
+        :
+        null
   }
 };
 
